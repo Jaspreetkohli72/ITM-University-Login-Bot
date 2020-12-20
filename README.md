@@ -12,7 +12,7 @@ A bot to login/join online google meet classes held at ITM University Raipur for
 - chrome
 - firefox
 
-### -Installing dependencies
+### - Installing dependencies
 
 - [Click here to install Selenium](https://pypi.org/project/selenium/)
 - [Click here to install pyautogui](https://pypi.org/project/PyAutoGUI/)

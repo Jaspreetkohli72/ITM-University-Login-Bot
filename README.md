@@ -6,11 +6,15 @@ A bot to login/join online google meet classes held at ITM University Raipur for
 
 ## 1. Dependencies
 
--selenium
--pyautogui
--webdirvers
--chrome
--firefox
+#### -selenium
+
+#### -pyautogui
+
+#### -webdirvers
+
+#### -chrome
+
+#### -firefox
 
 ### -Installing dependencies
 

@@ -6,7 +6,7 @@ A bot to login/join online google meet classes held at ITM University Raipur for
 
 ## 1. Dependencies
 
-#### -selenium
+#### - selenium
 
 [Click here to install Selenium](https://pypi.org/project/selenium/)
 

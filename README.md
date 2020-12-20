@@ -6,23 +6,15 @@ A bot to login/join online google meet classes held at ITM University Raipur for
 
 ## 1. Dependencies
 
-#### - selenium
+- selenium
+- pyautogui
+- webdirvers
+- chrome
+- firefox
 
-[Click here to install Selenium](https://pypi.org/project/selenium/)
+### -Installing dependencies
 
-#### -pyautogui
-
-[Click here to install pyautogui](https://pypi.org/project/PyAutoGUI/)
-
-#### -webdirvers
-
-##### -chrome
-
-[Click here to install Webdriver for Chrome](https://chromedriver.chromium.org/downloads)
-
-##### -firefox
-
-[Click here to install Webdriver for Mozilla Firefox](https://github.com/mozilla/geckodriver/releases)
+-[Click here to install Selenium](https://pypi.org/project/selenium/) -[Click here to install pyautogui](https://pypi.org/project/PyAutoGUI/) -**WebDirvers** -[Click here to install Webdriver for Chrome](https://chromedriver.chromium.org/downloads) -[Click here to install Webdriver for Mozilla Firefox](https://github.com/mozilla/geckodriver/releases)
 
 ## 2. Credentials
 

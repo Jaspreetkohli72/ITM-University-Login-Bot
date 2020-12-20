@@ -19,7 +19,7 @@ botOptions.add_argument('--use-fake-ui-for-media-stream')
 botOptions.add_argument('--disable-infobars')
 botOptions.add_argument('--disable-notifications')
 
-sub_conf = input('Is it english class (y/n)  ')
+sub_conf = input('Is it english class (y/n) ')
 
 if(sub_conf == 'y'):
     url = 'https://accounts.google.com/signin/v2/identifier?ltmpl=meet&continue=https%3A%2F%2Fmeet.google.com%2Ficf-xcxx-qjr%3Fhs%3D196&flowName=GlifWebSignIn&flowEntry=ServiceLogin'

@@ -60,12 +60,21 @@ class meet_bot:
             meetLink.click()
         time.sleep(5)
         print('key pressed')
+        pyautogui.hotkey('tab')
         pyautogui.hotkey('ctrl', 'd')
         pyautogui.hotkey('ctrl', 'e')
-        time.sleep(5)
-        joinBtn = bot.find_element_by_css_selector(
-            '#yDmH0d > c-wiz > div > div > div:nth-child(8) > div.crqnQb > div > div > div.vgJExf > div > div.KieQAe > div.d7iDfe.NONs6c > div > div.Sla0Yd > div > div.XCoPyb > div.uArJ5e.UQuaGc.Y5sE8d.uyXBBb.xKiqt > span')
-        joinBtn.click()
+        bot.implicitly_wait(20)
+        if(sub_conf == 'y'):
+            joinBtn = bot.find_element_by_css_selector(
+                '#yDmH0d > c-wiz > div > div > div:nth-child(8) > div.crqnQb > div > div > div.vgJExf > div > div.KieQAe > div.d7iDfe.NONs6c > div > div.Sla0Yd > div > div.XCoPyb > div.uArJ5e.UQuaGc.Y5sE8d.uyXBBb.xKiqt > span')
+            joinBtn.click()
+        else:
+            try:
+                joinBtn = bot.find_element_by_css_selector(
+                    '#yDmH0d > c-wiz > div > div > div:nth-child(8) > div.crqnQb > div > div > div.vgJExf > div > div.KieQAe > div.d7iDfe.NONs6c > div > div.Sla0Yd > div > div.XCoPyb > div.uArJ5e.UQuaGc.Y5sE8d.uyXBBb.xKiqt > span')
+                joinBtn.click()
+            except:
+                print("Loading took too much time")
 
 
 obj = meet_bot()

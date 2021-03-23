@@ -81,13 +81,14 @@ class timeTableCls:
             per = 0
             print('BREAK')
         elif(time >= '02:30 PM' and time <= '03:30 PM'):
-            per = 4
+            per = 5
             print(per, 'th Period')
         elif(time >= '03:30 PM' and time <= '04:30 PM'):
             per = 6
             print(per, 'th Period')
         elif(time > '04:30 PM'):
             sys.exit('Class time is over')
+            t.sleep(10)
         return per
 
     def brkFn(self, per):
@@ -100,12 +101,26 @@ class timeTableCls:
     def subFn(self, day, per):
         if(day == 'Wednessday'):
             if(per == 1 or per == 2):
-                sub_conf = 'y'
+                sub_conf = 'e'
+            elif(per == 3):
+                sub_conf = 'j'
             else:
                 sub_conf = 'n'
         elif(day == 'Friday' or day == 'Saturday'):
             if(per == 3 or per == 4):
-                sub_conf = 'y'
+                sub_conf = 'e'
+            elif(day == 'Saturday' and per == 1):
+                sub_conf = 'j'
+            else:
+                sub_conf = 'n'
+        elif(day == 'Monday'):
+            if(per == 5 or per == 6):
+                sub_conf = 'jl'
+            else:
+                sub_conf = 'n'
+        elif(day == 'Thursday'):
+            if(per == 1):
+                sub_conf = 'j'
             else:
                 sub_conf = 'n'
         else:
@@ -115,8 +130,17 @@ class timeTableCls:
 
 class subjCls:
     def urlDeclare(self, sub):
-        if(sub == 'y'):
-            url = 'https://accounts.google.com/signin/v2/identifier?ltmpl=meet&continue=https%3A%2F%2Fmeet.google.com%2Ficf-xcxx-qjr%3Fhs%3D196&flowName=GlifWebSignIn&flowEntry=ServiceLogin'
+        meet = 'http://meet.google.com/'
+        if(sub == 'e'):
+            classCode = input(
+                "Enter the code for the class\n").replace(" ", "-")
+            url = meet+classCode
+        elif(sub == 'jl'):
+            classCode = 'shd wswc avf'
+            url = meet+classCode.replace(" ", "-")
+        elif(sub == 'j'):
+            classCode = 'iak fqqv cfc'
+            url = meet+classCode.replace(" ", "-")
         else:
             url = 'https://classroom.google.com/u/1/c/MTE1MzE3MzgyMTY0'
         return url
@@ -156,10 +180,10 @@ class meet_bot:
         t.sleep(5)
         print('key pressed')
         pyautogui.hotkey('tab')
-        pyautogui.hotkey('ctrl', 'd')
+        #pyautogui.hotkey('ctrl', 'd')
         pyautogui.hotkey('ctrl', 'e')
         bot.implicitly_wait(20)
-        if(sub == 'y'):
+        if(sub == 'e'):
             joinBtn = bot.find_element_by_css_selector(
                 '#yDmH0d > c-wiz > div > div > div:nth-child(8) > div.crqnQb > div > div > div.vgJExf > div > div.KieQAe > div.d7iDfe.NONs6c > div > div.Sla0Yd > div > div.XCoPyb > div.uArJ5e.UQuaGc.Y5sE8d.uyXBBb.xKiqt > span')
             joinBtn.click()
@@ -179,6 +203,7 @@ ttObj = timeTableCls()
 period = ttObj.periodSel(time)
 brk = ttObj.brkFn(period)
 if(brk):
+    t.sleep(10)
     sys.exit("it's BREAK time")
 else:
     subject = ttObj.subFn(day, period)

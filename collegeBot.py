@@ -76,7 +76,7 @@ class timeTableCls:
             print(per, 'rd Period')
         elif(time >= '12:45 PM' and time <= '01:45 PM'):
             per = 4
-            print(per+'th Period')
+            print(per, 'th Period')
         elif(time >= '01:45 PM' and time <= '02:30 PM'):
             per = 0
             print('BREAK')
@@ -98,13 +98,13 @@ class timeTableCls:
         return brkTime
 
     def subFn(self, day, per):
-        if(day == 'Monday' or day == 'Wednessday'):
-            if(per == 3 or per == 4):
+        if(day == 'Wednessday'):
+            if(per == 1 or per == 2):
                 sub_conf = 'y'
             else:
                 sub_conf = 'n'
-        elif(day == 'Tuesday'):
-            if(per == 2 or per == 4):
+        elif(day == 'Friday' or day == 'Saturday'):
+            if(per == 3 or per == 4):
                 sub_conf = 'y'
             else:
                 sub_conf = 'n'

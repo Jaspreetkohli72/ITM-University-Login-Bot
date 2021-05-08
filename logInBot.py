@@ -10,25 +10,68 @@ import pyautogui
 import json
 from datetime import date
 from datetime import datetime
-import csv
-import pandas
-import numpy
 import sys
 
-secretData = json.load(
-    open('credentials.json', 'r'))
+if(os.name == 'nt'):
+    print("Windows")
+    filename = 'configWin.json'
+elif(os.name == 'posix'):
+    print("linux")
+    filename = 'configLin.json'
 
-# example = json.load(open('Time Table.json', 'r'))
-# print(example['Day/Time'])
+
+def writeToJSONFile(path, filename, data):
+    filePathNameWExt = './'+path+'/'+filename
+    with open(filePathNameWExt, 'w')as fp:
+        json.dump(data, fp)
 
 
-emailID = secretData['emailID']
-password = secretData['password']
+configRead = json.load(
+    open(filename, 'r+'))
+
+
+iLoad = configRead['initialRun']
+if(iLoad):
+    userData = input("Enter the path to userdata folder\n")
+    if(userData == "" or userData == " "):
+        exit('no data entered')
+    else:
+        if(os.path.isdir(userData)):
+            print('User Data Directory Saved')
+        else:
+            exit('Directory not found')
+    exPath = input("Enter the path to chromedriver\n")
+    if(exPath == "" or exPath == " "):
+        exit('no data entered')
+    else:
+        if(os.path.exists(exPath)):
+            print('Chromedriver path Saved')
+        else:
+            exit('File not found not found')
+    data = {}
+    data['initialRun'] = False
+    data['uData'] = userData
+    data['chromedriverPath'] = exPath
+    writeToJSONFile('./', filename, data)
+else:
+    print("False")
+    userData = configRead['uData']
+    if(os.path.exists(userData)):
+        print('userdata Found')
+    else:
+        exit('Userdata not found not found')
+    exPath = configRead['chromedriverPath']
+    if(os.path.exists(exPath)):
+        print('Chromedriver path Saved')
+    else:
+        exit('File not found not found')
 
 botOptions = Options()
 botOptions.add_argument('--use-fake-ui-for-media-stream')
 botOptions.add_argument('--disable-infobars')
 botOptions.add_argument('--disable-notifications')
+botOptions.add_argument(
+    'user-data-dir='+userData)
 
 
 class dateTimeCls:
@@ -87,8 +130,9 @@ class timeTableCls:
             per = 6
             print(per, 'th Period')
         elif(time > '04:30 PM'):
-            sys.exit('Class time is over')
+            print('class time is over')
             t.sleep(10)
+            sys.exit(0)
         return per
 
     def brkFn(self, per):
@@ -132,9 +176,8 @@ class subjCls:
     def urlDeclare(self, sub):
         meet = 'http://meet.google.com/'
         if(sub == 'e'):
-            classCode = input(
-                "Enter the code for the class\n").replace(" ", "-")
-            url = meet+classCode
+            classCode = 'poh aeys nnu'
+            url = meet+classCode.replace(' ', '-')
         elif(sub == 'jl'):
             classCode = 'shd wswc avf'
             url = meet+classCode.replace(" ", "-")
@@ -142,41 +185,20 @@ class subjCls:
             classCode = 'iak fqqv cfc'
             url = meet+classCode.replace(" ", "-")
         else:
-            url = 'https://classroom.google.com/u/1/c/MTE1MzE3MzgyMTY0'
+            url = 'https://meet.google.com/lookup/bb32l4pg3b?authuser=0&hs=179'
         return url
 
 
 class meet_bot:
     def __init__(self):
-        self.bot = webdriver.Chrome(options=botOptions)
+        self.bot = webdriver.Chrome(
+            executable_path=exPath, options=botOptions)
 
-    def login(self, email, passw, url, sub):
+    def login(self, url, sub):
         bot = self.bot
 
         bot.get(url)
         bot.implicitly_wait(20)
-
-        emailIdInput = bot.find_element_by_xpath('//*[@id="identifierId"]')
-        emailIdInput.send_keys(email)
-
-        nextBtn = bot.find_element_by_xpath(
-            '//*[@id="identifierNext"]/div/button')
-        nextBtn.click()
-
-        bot.implicitly_wait(20)
-
-        passwordInput = bot.find_element_by_xpath(
-            "//*[@id='password']/div[1]/div/div[1]/input")
-        passwordInput.send_keys(passw)
-
-        finishBtn = bot.find_element_by_xpath(
-            '//*[@id="passwordNext"]/div/button')
-        finishBtn.click()
-        if(sub == 'n'):
-            t.sleep(2)
-            meetLink = bot.find_element_by_xpath(
-                '//*[@id="yDmH0d"]/div[2]/div/div[1]/div/div[2]/div[2]/div/span/a')
-            meetLink.click()
         t.sleep(5)
         print('key pressed')
         pyautogui.hotkey('tab')
@@ -203,12 +225,14 @@ ttObj = timeTableCls()
 period = ttObj.periodSel(time)
 brk = ttObj.brkFn(period)
 if(brk):
+    print("it's BREAK time")
     t.sleep(10)
-    sys.exit("it's BREAK time")
+    sys.exit(0)
 else:
     subject = ttObj.subFn(day, period)
     print(subject)
 subObj = subjCls()
 url = subObj.urlDeclare(subject)
+print(url)
 obj = meet_bot()
-obj.login(emailID, password, url, subject)
+obj.login(url, subject)

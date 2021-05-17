@@ -34,7 +34,7 @@ configRead = json.load(
 
 iLoad = configRead['initialRun']
 if(iLoad):
-    userData = input("Enter the path to userdata folder\n")
+    userData = input("Enter the path to Chrome's userdata folder\n")
     if(userData == "" or userData == " "):
         exit('no data entered')
     else:

@@ -19,3 +19,10 @@ A bot to login/join online google meet classes held at ITM University Raipur for
 - **WebDirvers**
   - [Click here to install Webdriver for Chrome](https://chromedriver.chromium.org/downloads)
   - [Click here to install Webdriver for Mozilla Firefox](https://github.com/mozilla/geckodriver/releases)
+
+# 2. Info
+
+- **Release**
+  - [Click here to download latest Release](https://github.com/Jaspreetkohli72/ITM-University-Login-Bot/releases/tag/v1.0)
+- **Script**
+  - You can clone this script and add support for mozzila firefox

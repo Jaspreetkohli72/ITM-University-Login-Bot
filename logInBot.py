@@ -12,9 +12,11 @@ from datetime import date
 from datetime import datetime
 import sys
 
+winFlag = 0
 if(os.name == 'nt'):
     print("Windows")
     filename = 'configWin.json'
+    winFlag = 1
 elif(os.name == 'posix'):
     print("linux")
     filename = 'configLin.json'
@@ -62,16 +64,16 @@ else:
         exit('Userdata not found not found')
     exPath = configRead['chromedriverPath']
     if(os.path.exists(exPath)):
-        print('Chromedriver path Saved')
+        print('Chromedriver Found')
     else:
         exit('File not found not found')
+
 
 botOptions = Options()
 botOptions.add_argument('--use-fake-ui-for-media-stream')
 botOptions.add_argument('--disable-infobars')
 botOptions.add_argument('--disable-notifications')
-botOptions.add_argument(
-    'user-data-dir='+userData)
+botOptions.add_argument('user-data-dir='+userData)
 
 
 class dateTimeCls:
@@ -185,7 +187,7 @@ class subjCls:
             classCode = 'iak fqqv cfc'
             url = meet+classCode.replace(" ", "-")
         else:
-            url = 'https://meet.google.com/lookup/bb32l4pg3b?authuser=0&hs=179'
+            url = 'https://classroom.google.com/u/1/c/MTE1MzE3MzgyMTY0'
         return url
 
 
@@ -199,6 +201,10 @@ class meet_bot:
 
         bot.get(url)
         bot.implicitly_wait(20)
+        if(sub == 'n'):
+            meetLink = bot.find_element_by_xpath(
+                '//*[@id="yDmH0d"]/div[4]/div/div/div[1]/div/div[2]/div[2]/div/span/a/div')
+            meetLink.click()
         t.sleep(5)
         print('key pressed')
         pyautogui.hotkey('tab')
